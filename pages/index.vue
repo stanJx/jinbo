@@ -7,7 +7,7 @@
         </div>
         <div class="search">
           <el-input
-            placeholder="阿里巴巴首页"
+            placeholder="阿里巴巴首页 "
             v-model="input"
             clearable
             size="large">
