@@ -11,8 +11,7 @@
             <i class="money">
               <strong>¥</strong>4.50
             </i>
-            <!--<em><a href="">30~49件</a></em>-->
-            <!--<span><a>30~49件</a></span>-->
+            <em><div class="amount">30~49件</div></em>
           </span>
           <span></span>
           <span></span>
@@ -21,7 +20,7 @@
       <div class="company">
         <a href="" class="address">深圳市龙岗区优美杰服装商行</a>
         <span>
-          <a href="">
+          <a href="" class="year">
             <img src="../../assets/img/home/small_logo.png" alt="">
             一年
           </a>
@@ -40,20 +39,29 @@
       }
     },
     methods: {
-      mouseenter (val) {
-        console.log(val)
+      mouseenter () {
         this.$emit('returnShow', [this.index, false])
-//        this.data[index].show = false
       },
       mouseleave () {
-//        this.$emit(false, 'returnShow')
-//        this.data[index].show = true
+        this.$emit('returnShow', [this.index, true])
       }
     }
   }
 </script>
 
 <style scoped>
+  a{
+    text-decoration: none;
+    color: #888;
+  }
+  a:hover{
+    transition: color .3s ease 0s;
+    color: #FF7300;
+  }
+  .year:hover, .amount:hover{
+    transition: color .3s ease 0s;
+    color: #FF7300;
+  }
   .picTitle{
     font-size: 12px;
     display: block;
@@ -144,7 +152,7 @@
     font-style: normal;
     white-space: nowrap;
   }
-  .price span em a{
+  .price span em div{
     float: left;
     width: 100%;
     height: 14px;
@@ -160,7 +168,7 @@
   }
   .company{
     border-top: 1px solid #efefef;
-    padding: 6px 10px 15px 10px;
+    padding: 10px;
     height: 18px;
     overflow: hidden;
     color: #888;

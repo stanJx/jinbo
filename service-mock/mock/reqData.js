@@ -19,7 +19,6 @@ backData[1] = Mock.mock({
     'isActive': false
   }]
 })
-
 backData[3] = Mock.mock({
   'data|12': [{
     'title': Random.cword(4),

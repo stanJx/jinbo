@@ -18,6 +18,14 @@
 </script>
 
 <style>
+  a{
+    text-decoration: none;
+    color: #888;
+  }
+  a:hover{
+    transition: color .3s ease 0s;
+    color: #FF7300;
+  }
   .container{
     width:1190px;
     /*border:1px solid red;*/

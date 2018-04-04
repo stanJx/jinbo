@@ -2,8 +2,6 @@
   <div style="overflow-x: hidden">
     <Header></Header>
     <Middle></Middle>
-
-
     <div class="content">
       <div class="container" >
         <el-row style="margin-left: -22.5px;">
@@ -11,7 +9,6 @@
             <PicBox :item="item" :index="index" @returnShow="callback"></PicBox>
           </el-col>
         </el-row>
-
       </div>
     </div>
 
@@ -33,14 +30,13 @@
     components: { Header, Middle, PicBox},
     data () {
       return {
-        data: [{}],
         picTitle: true,
         showActive: false
       }
     },
     methods: {
       callback (val) {
-        data[val[0]].show = val[1]
+        this.data[val[0]].show = val[1]
         console.log(val[0])
       }
     }
@@ -49,14 +45,7 @@
 
 <style scoped>
   /*公共样式*/
-  a{
-    text-decoration: none;
-    color: #888;
-  }
-  .content a:hover{
-    transition: color .3s ease 0s;
-    color: #FF7300;
-  }
+  .content
   .container{
     width:1190px;
     /*border:1px solid red;*/

@@ -43,6 +43,14 @@
 </script>
 
 <style scoped>
+  a{
+    text-decoration: none;
+    color: #888;
+  }
+  a:hover{
+    transition: color .3s ease 0s;
+    color: #FF7300;
+  }
   .header{
     background: #f6f6f6;
     margin-bottom: 16px;
