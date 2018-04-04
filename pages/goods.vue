@@ -88,7 +88,7 @@
 
           <div class="button">
             <el-button style="background: #ff7300; color:white;width: 147px;height: 55px;">立即订购</el-button>
-            <el-button style="background: #ff7300; color:white"><img src="../../assets/img/home/shopping.png" alt="" style="width:22px; height:22px;float: left;padding-top: 4px;"><span style="line-height: 30px; font-size: 16px;">加入购物车</span></el-button>
+            <el-button style="background: #ff7300; color:white"><img src="../assets/img/home/shopping.png" alt="" style="width:22px; height:22px;float: left;padding-top: 4px;"><span style="line-height: 30px; font-size: 16px;">加入购物车</span></el-button>
           </div>
 
         </div>
