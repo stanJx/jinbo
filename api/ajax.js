@@ -11,7 +11,6 @@ export default {
     console.log(request)
     axios({
       method: 'POST',
-      // url: '/api/zjsbs/njuapi',
       url: '/zjsbs/njuapi/sss',
       data: qs.stringify(request)
     }).then(function (response) {
