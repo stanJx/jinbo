@@ -7,13 +7,14 @@
         </div>
         <div class="search">
           <el-input
-            placeholder="阿里巴巴首页 "
+            placeholder="阿里巴巴首页"
             v-model="input"
             clearable
             size="large">
             <el-button type="primary" style="background: #ff500b; color: #fff;width:100px;"  slot="append">搜索</el-button>
           </el-input>
           <ol class="introduce">
+            {{title}}
             <li>热搜:</li>
             <li><a href="">女装</a></li>
             <li><a href="">童装</a></li>
@@ -94,7 +95,7 @@
         url: 'http://localhost:3003/jin',
         data: {}
       }).then(response => {
-        return {title: 'dsf'}
+        return {title: 'gfh'}
       })
     },
     data () {
