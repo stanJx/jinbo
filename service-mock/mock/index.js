@@ -1,16 +1,9 @@
 const express = require('express')
 const router = express.Router()
-router.use('/jin', (req, res) => {
+router.use('/api', (req, res) => {
   console.log(req.body)
-  let foldName = Math.ceil(req.body.type / 100) * 100
-  let resData
-  try {
-    resData = require('./type/' + foldName + '/' + req.body.type + '.js')
-  } catch (e) {
-    resData = function (param) {
-      return {code: 0, msg: 'ok', data: {}}
-    }
-  }
+  let resData = require('./reqData')
+  console.log(resData(req.body))
   res.json(resData(req.body))
 })
 

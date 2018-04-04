@@ -1,24 +1,19 @@
 import axios from 'axios'
 import qs from 'qs'
 
-export default {
-  post (opt, backFn, failFn) {
-    let request = {
-      type: opt.type || undefined,
-      data: JSON.stringify(opt.data || {}),
-      md5: 'md5'
-    }
-    console.log(request)
+export default function (param) {
+  return new Promise((resolve, reject) => {
+    console.log(param)
     axios({
       method: 'POST',
-      url: '/zjsbs/njuapi/sss',
-      data: qs.stringify(request)
-    }).then(function (response) {
+      url: 'http://localhost:3003/api',
+      data: qs.stringify(param)
+    }).then((response) => {
       console.log(response)
-      if (typeof backFn === 'function') { backFn(response) }
+      resolve(response.data.data)
     }).catch(function (error) {
       console.log(error)
-      if (typeof failFn === 'function') { failFn(error) }
+      reject(error)
     })
-  }
+  })
 }
