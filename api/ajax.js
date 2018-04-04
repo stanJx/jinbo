@@ -12,7 +12,7 @@ export default {
     axios({
       method: 'POST',
       // url: '/api/zjsbs/njuapi',
-      url: '/zjsbs/njuapi',
+      url: '/zjsbs/njuapi/sss',
       data: qs.stringify(request)
     }).then(function (response) {
       console.log(response)
