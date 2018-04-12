@@ -15,7 +15,7 @@
     </div>
 
     <div class="container">
-      <Remark></Remark>
+      <Remark :goodsInfo="goodsInfo"></Remark>
     </div>
   </div>
 
@@ -28,22 +28,17 @@
   import request from '../api/ajax'
 
   export default {
-    asyncData () {
-      return request({type: 2, data: {text: 'ss'}}).then(value => {
+    async asyncData () {
+      let picBox = await request({type: 2, data: {text: 'ss'}}).then(value => {
         console.log(value.data)
-        return {picBox: value.data}
+        return value.data
       })
+      let goodsInfo = await request({type: 3, data: {text: 'ss'}}).then(value => {
+        console.log(value.data)
+        return  value.data
+      })
+      return {picBox: picBox, goodsInfo: goodsInfo}
     },
-    //    async asyncData () {
-//      await request({type: 2, data: {text: 'ss'}}).then(value => {
-//        console.log(value.data)
-//        return {picBox: value.data}
-//      })
-//      await request({type: 3, data: {text: 'ss'}}).then(value => {
-//        console.log(value.data)
-//        return {goodsInfo: value.data}
-//      })
-//    },
     created () {
         this.smallPic =  this.picBox[0].pic,
         this.bigPic = this.picBox[0].bigPic,

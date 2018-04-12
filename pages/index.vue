@@ -27,9 +27,6 @@
         return {data: value.data}
       })
     },
-    mounted() {
-      console.log(this.data)
-    },
     components: { Header, Middle, PicBox},
     data () {
       return {
