@@ -6,30 +6,27 @@
         <td>价格</td>
         <td class="priceTag">
           <span>¥</span>
-          <span>123.00</span>
+          <span>{{this.price[0]}}</span>
         </td>
         <td class="priceTag">
           <span>¥</span>
-          <span>123.00</span>
+          <span>{{this.price[1]}}</span>
         </td>
         <td class="priceTag">
           <span>¥</span>
-          <span>123.00</span>
+          <span>{{this.price[2]}}</span>
         </td>
       </tr>
       <tr class="amount">
         <td>起批量</td>
         <td class="amountRange">
-          <span>2-4</span>
-          <span>条</span>
+          <span>{{this.numbers[0]}}件</span>
         </td>
         <td class="amountRange">
-          <span>2-4</span>
-          <span>条</span>
+          <span>{{this.numbers[1]}}件</span>
         </td>
         <td class="amountRange">
-          <span>2-4</span>
-          <span>条</span>
+          <span>{{this.numbers[2]}}件</span>
         </td>
       </tr>
       </tbody>
@@ -53,7 +50,7 @@
           <ul>
             <li v-for="(item, index) in this.picBox" :key="index" @click="chooseColor(index)">
               <div>
-                <span :class="{active: item.isActive, normal: !item.isActive}"><img :src="item.pic" alt="" style="width: 100%;height: 100%;"></span>
+                <span :class="{normal: true, active: index === indexs}"><img :src="item" alt="" style="width: 100%;height: 100%;"></span>
               </div>
             </li>
           </ul>
@@ -76,18 +73,13 @@
         </div>
       </div>
 
-      <div class="button">
-        <el-button style="background: #ff7300; color:white;width: 147px;height: 55px;">立即订购</el-button>
-        <el-button style="background: #ff7300; color:white"><img src="../../assets/img/home/shopping.png" alt="" style="width:22px; height:22px;float: left;padding-top: 4px;"><span style="line-height: 30px; font-size: 16px;">加入购物车</span></el-button>
-      </div>
-
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    props: ['picBox', 'size', 'number'],
+    props: ['picBox', 'size', 'number','numbers', 'price', 'indexs'],
     data () {
       return {
       }
@@ -281,10 +273,6 @@
   .number .numberChange div:nth-child(3){
     color: #3C3C3C;
     background-color: #ededed;
-  }
-  .button{
-    margin-top:20px;
-    margin-left: 36px;
   }
 
 </style>

@@ -9,20 +9,30 @@
         <a>
           <span>
             <i class="money">
-              <strong>¥</strong>4.50
+              <strong>¥</strong>{{this.price[0]}}
             </i>
-            <em><div class="amount">30~49件</div></em>
+            <em><div class="amount">{{this.number[0]}}件</div></em>
           </span>
-          <span></span>
-          <span></span>
+          <span>
+            <i class="money">
+              <strong>¥</strong>{{this.price[1]}}
+            </i>
+            <em><div class="amount">{{this.number[1]}}件</div></em>
+          </span>
+          <span>
+            <i class="money">
+              <strong>¥</strong>{{this.price[2]}}
+            </i>
+            <em><div class="amount">{{this.number[2]}}件</div></em>
+          </span>
         </a>
       </div>
       <div class="company">
-        <a href="" class="address">深圳市龙岗区优美杰服装商行</a>
+        <a href="" class="address">{{this.item.address}}</a>
         <span>
           <a href="" class="year">
             <img src="../../assets/img/home/small_logo.png" alt="">
-            一年
+            {{this.item.year}}年
           </a>
         </span>
       </div>
@@ -35,7 +45,8 @@
     props: ['item', 'index'],
     data () {
       return{
-
+        price: this.item.price.split(','),
+        number: this.item.number.split(',')
       }
     },
     methods: {
@@ -44,6 +55,9 @@
       },
       mouseleave () {
         this.$emit('returnShow', [this.index, true])
+      },
+      choosePic () {
+        this.$emit('choosePic')
       }
     }
   }
@@ -74,7 +88,7 @@
     text-align: left;
     background: rgba(80,156,30,.8);
     height: 38px;
-    width: 210px;
+    width: 100%;
     padding: 1px 5px 1px 5px;
   }
   .showActive{
@@ -89,7 +103,7 @@
     text-align: left;
     background: rgba(80,156,30,.8);
     height: 38px;
-    width: 210px;
+    width: 100%;
     padding: 1px 5px 1px 5px
   }
   .content .price{
@@ -100,6 +114,7 @@
     position: relative;
     width: 220px;
     height: 220px;
+    overflow: hidden;
   }
   .image img{
     width:100%;
@@ -119,6 +134,8 @@
     font-size: 12px;
   }
   .image img:hover{
+    width: 240px;
+    height: 240px;
     transform: scale(1);
     transition: all .5s ease 0s;
   }
@@ -169,7 +186,7 @@
   .company{
     border-top: 1px solid #efefef;
     padding: 10px;
-    height: 18px;
+    /*height: 18px;*/
     overflow: hidden;
     color: #888;
   }

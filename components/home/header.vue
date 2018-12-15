@@ -9,13 +9,14 @@
           placeholder="阿里巴巴首页"
           v-model="input"
           clearable
-          size="large">
-          <el-button type="primary" style="background: #ff500b; color: #fff;width:100px;"  slot="append">搜索</el-button>
+          size="large"
+          @keyup.enter.native="searchInput">
+          <el-button type="primary" style="background: #ff500b; color: #fff;width:100px;"  slot="append" @click="searchInput">搜索</el-button>
         </el-input>
         <ol class="introduce">
           <li>热搜:</li>
-          <li><a href="">女装</a></li>
-          <li><a href="">童装</a></li>
+          <li><a :href="`/?catalog=${'1'}`">女装</a></li>
+          <li><a :href="`/?catalog=${'2'}`">童装</a></li>
           <li><a href="">2018女装连衣裙</a></li>
           <li><a href="">连衣裙</a></li>
           <li><a href="">手机壳</a></li>
@@ -24,7 +25,6 @@
           <li><a href="">玩具</a></li>
           <li><a href="">手表</a></li>
           <li><a href="">拖鞋</a></li>
-          <li><a href="">耳机</a></li>
         </ol>
       </div>
     </div>
@@ -37,6 +37,14 @@
     data () {
       return {
         input: ''
+      }
+    },
+    methods: {
+      searchInput () {
+        this.$emit('searchInput', this.input)
+      },
+      typeClick (val) {
+        console.log(val)
       }
     }
   }
@@ -109,5 +117,9 @@
     line-height: 17px;
     text-decoration: none;
     color:#999;
+  }
+  .search ol li a:hover{
+    transition: color .3s ease 0s;
+    color: #FF7300;
   }
 </style>
