@@ -1,6 +1,10 @@
 <template>
-  <div style="background: #F7F7F7; height: 728px;" ref="box">
+  <div>
     <div class="container">
+      <div class="header">
+        <div class="logo" style="width: 108px;height: 40px"><img style="width:100%;height: 100%;" src="../assets/img/cart/goods_logo.png" alt=""></div>
+      </div>
+
       <div class="order">
         <div class="store">
           <div class="contact">
@@ -28,18 +32,18 @@
                   <tr class="single" style="height: 100px;">
                     <td>
                       <div class="dl">
-                        <div class="side"><img src="../../assets/img/1.jpg" alt="" style="width: 60px;height: 60px;"></div>
-                        <div class="offer-title">棉t恤长袖爆款跑量2018春秋装新款女装一字领纯条纹T恤女打底衫</div>
-                        <div class="offer-sku"><span>颜色：黑色条纹</span> <span>尺码：S</span></div>
+                        <div class="side"><img :src="pic" alt="" style="width: 60px;height: 60px;"></div>
+                        <div class="offer-title">{{this.title}}</div>
+                        <div class="offer-sku"><span>颜色：{{this.color}}</span> <span>尺码：{{this.$route.query.size}}</span></div>
                         <div class="support-icon"><img src="../../assets/img/home/small_logo.png" alt=""></div>
                       </div>
                     </td>
-                    <td style="width: 135px;font-size: 14px;word-wrap: break-word;text-align: center;">21.00</td>
+                    <td style="width: 135px;font-size: 14px;word-wrap: break-word;text-align: center;">{{singlePrice}}</td>
                     <td>
                       <ControlNumber @changeNumber="changeNumber" :number="number"></ControlNumber>
                     </td>
                     <td style="text-align: center">--</td>
-                    <td style="font-weight: 700;font-size: 14px;word-wrap: break-word;text-align: right;padding-right: 42px;">42.00</td>
+                    <td style="font-weight: 700;font-size: 14px;word-wrap: break-word;text-align: right;padding-right: 42px;">{{goodsPrice}}</td>
                     <td style="font-weight: 700;font-size: 14px;word-wrap: break-word;text-align: right;padding-right: 36px;">6.00</td>
                   </tr>
                   <tr class="summary" style="height: 80px;">
@@ -47,15 +51,15 @@
                       <div class="message">
                         <div class="tell">给卖家留言:</div>
                         <div class="input">
-                          <el-input placeholder="可以告诉卖家您的特殊要求" type="textarea" autosize></el-input>
+                          <el-input placeholder="可以告诉卖家您的特殊要求" type="textarea" v-model="textarea" autosize></el-input>
                         </div>
                       </div>
                     </td>
                     <td colspan="3">
                       <div class="subtotal-wrap" style="width: 225px;height: 100%;float: right">
                         <div class="subtotal">
-                          <div class="item"><span>运费总计:&nbsp;</span><span>6.00</span><span>元</span></div>
-                          <div class="item"><span>货品总金额:&nbsp;</span><span>21.00</span><span>元</span></div>
+                          <div class="item"><span>运费总计:&nbsp;</span><span>6</span><span>元</span></div>
+                          <div class="item"><span>货品总金额:&nbsp;</span><span>{{allPrice}}</span><span>元</span></div>
                         </div>
                       </div>
                     </td>
@@ -73,13 +77,13 @@
           <div class="content">
             <div class="summary-count">
               <div class="number"><span>货品种类&nbsp;：</span><span>1种</span></div>
-              <div class="number"><span>数量总计&nbsp;：</span><span>1件</span></div>
+              <div class="number"><span>数量总计&nbsp;：</span><span>{{this.number}}件</span></div>
             </div>
 
             <div class="itemBox">
-              <div class="item"><span>运费共计：</span><span>8.00</span><span>元</span></div>
-              <div class="item"><span>货品总金额：</span><span>67.00</span>&nbsp;<span>元</span></div>
-              <div class="item"><span>应付总额（含运费）：</span><span style="font-size: 18px;color: #ff6000;">75.00</span>&nbsp;<span>元</span></div>
+              <div class="item"><span>运费共计：</span><span>6.00</span><span>元</span></div>
+              <div class="item"><span>货品总金额：</span><span>{{allPrice}}</span>&nbsp;<span>元</span></div>
+              <div class="item"><span>应付总额（含运费）：</span><span style="font-size: 18px;color: #ff6000;">{{allPrice}}</span>&nbsp;<span>元</span></div>
             </div>
           </div>
         </div>
@@ -87,30 +91,133 @@
 
       <div class="end">
         <div class="checkout">
-          <div class="checktotal"><span class="label">应付总额(含运费)：</span>&nbsp;<span>26.00</span>&nbsp;<span>元</span></div>
-          <a href="">提交订单</a>
+          <div class="checktotal"><span class="label">应付总额(含运费)：</span>&nbsp;<span>{{allPrice}}</span>&nbsp;<span>元</span></div>
+          <div class="submit" @click="submitOrder">提交订单</div>
         </div>
 
       </div>
-
-
     </div>
   </div>
 </template>
 
 <script>
   import ControlNumber from '../components/controlNumber.vue'
+  import requests from '../api/axios'
+  import {format} from 'date-fns'
   export default {
     components: { ControlNumber },
+    created () {
+      console.log(this.$route.query.size)
+      requests({type: 2, data: {id: this.$route.query.id}}).then(value => {
+        console.log(value.data.price)
+        this.numberRange = value.data.number.split(',')
+        this.priceRange = value.data.price.split(',')
+        this.number1 = Number(this.numberRange[0].split('-')[0])
+        this.number2 = Number(this.numberRange[0].split('-')[1])
+        this.number3 = Number(this.numberRange[1].split('-')[0])
+        this.number4 = Number(this.numberRange[1].split('-')[1])
+        this.number5 = Number(this.numberRange[2].slice(1))
+        this.pic = value.data.thumbnail.split(',')[this.$route.query.color]
+        this.title = value.data.title
+        this.address = value.data.address
+        this.color = value.data.color.split(',')[this.$route.query.color]
+        console.log(this.number1, this.number2, this.number3, this.number4, this.number5)
+      })
+    },
     data () {
       return {
-        number: 1,
+        number: Number(this.$route.query.number),
+        pic: '',
+        title: '',
+        color: '',
+        numberRange: [],
+        number1: 0,
+        number2: 0,
+        number3: 0,
+        number4: 0,
+        number5: 0,
+        priceRange: [],
+        textarea: '',
+        address: '',
+        time: format(new Date(), 'YYYY-MM-DD HH:mm:ss')
+      }
+    },
+    computed: {
+      singlePrice () {
+        if (this.number >= this.number1 && this.number <= this.number2 ) {
+          return this.priceRange[0]
+        }
+        if (this.number >= this.number3 && this.number <= this.number4) {
+          return this.priceRange[1]
+        }
+        if (this.number >= this.number5 ) {
+          return this.priceRange[1]
+        }
+      },
+      goodsPrice () {
+        if (this.number >= this.number1 && this.number <= this.number2 ) {
+          return Number(this.priceRange[0] * this.number).toFixed(2)
+        }
+        if (this.number >= this.number3 && this.number <= this.number4) {
+          return Number(this.priceRange[1] * this.number).toFixed(2)
+        }
+        if (this.number >= this.number5 ) {
+          return this.priceRange[2] * this.number.toFixed(2)
+        }
+      },
+      allPrice () {
+        if (this.number >= this.number1 && this.number <= this.number2 ) {
+          return (this.priceRange[0] * this.number + 6).toFixed(2)
+        }
+        if (this.number >= this.number3 && this.number <= this.number4) {
+          return (this.priceRange[1] * this.number + 6).toFixed(2)
+        }
+        if (this.number >= this.number5 ) {
+          return (this.priceRange[2] * this.number + 6).toFixed(2)
+        }
       }
     },
     methods: {
       changeNumber (val) {
-        console.log(val)
-        val === 'remove' ? this.number = this.number - 1 : this.number = this.number + 1
+        console.log(this.singlePrice)
+        if (val === 'remove' && this.number === this.number1) {
+          this.$notify.error({
+            title: '错误',
+            message: '数量或金额不满足商家混批规则',
+          })
+        } else {
+          val === 'remove' ? this.number = this.number - 1 : this.number = this.number + 1
+        }
+      },
+      submitOrder () {
+        const h = this.$createElement;
+        this.$msgbox({
+          title: '消息',
+          message: h('p', null, [
+            h('span', null, '您确定要购买该商品'),
+          ]),
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          beforeClose: (action, instance, done) => {
+            if (action === 'confirm') {
+              instance.confirmButtonLoading = true;
+              instance.confirmButtonText = '执行中...'
+              setTimeout(() => {
+                done()
+                setTimeout(() => {
+                  instance.confirmButtonLoading = false;
+                }, 300)
+              }, 3000)
+            } else {
+              done()
+            }
+          }
+        }).then(action => {
+          requests({type: 4, data: {goods_id: this.$route.query.id, user_id: sessionStorage.user_id,size: this.$route.query.size, pic: this.pic, color: this.color,number: this.number, fare: 6, single_price: this.singlePrice, goods_price: this.goodsPrice, all_price: this.allPrice, remark: this.textarea, address: this.address, title: this.title, time: this.time}}).then(value => {
+            window.location.href = '/'
+          })
+        })
       }
     }
   }
@@ -121,6 +228,11 @@
     width: 1190px;
     margin: 0 auto;
     overflow: hidden;
+  }
+  .header{
+    padding: 0px 4px;
+    height: 56px;
+    width: 100%;
   }
   .store{
     height: 40px;
@@ -230,7 +342,7 @@
     margin-right: 4px;
     color: #ff6000;
   }
-  .checkout a{
+  .checkout .submit{
     margin-left: 20px;
     height: 60px;
     width: 180px;
