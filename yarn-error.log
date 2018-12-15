@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add
+  C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add proxy-module
 
 PATH: 
-  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\nodejs\;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\AppData\Roaming\npm;
+  C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Java\jre1.8.0_161\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\nodejs\;F:\Git\cmd;C:\Program Files\Java\jdk1.8.0_161\bin;C:\Program Files\Java\jdk1.8.0_161\jre\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\AppData\Roaming\npm;C:\Users\Administrator\AppData\Local\GitHubDesktop\bin
 
 Yarn version: 
   1.5.1
@@ -21,7 +21,7 @@ npm manifest:
     "author": "jinbo",
     "private": true,
     "scripts": {
-      "dev": "set PORT=3001 && nuxt",
+      "dev": "nuxt",
       "mockdev": "node service-mock/start.js",
       "build": "nuxt build",
       "start": "nuxt start",
@@ -29,9 +29,15 @@ npm manifest:
       "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
       "precommit": "npm run lint"
     },
+    "config": {
+      "nuxt": {
+        "port": "3001"
+      }
+    },
     "dependencies": {
       "axios": "^0.18.0",
       "element-ui": "^2.3.2",
+      "http-proxy-middleware": "^0.18.0",
       "mockjs": "^1.0.1-beta3",
       "normalize.css": "^8.0.0",
       "nuxt": "^1.0.0"
@@ -2292,6 +2298,10 @@ Lockfile:
       d "1"
       es5-ext "~0.10.14"
   
+  eventemitter3@1.x.x:
+    version "1.2.0"
+    resolved "http://registry.npm.taobao.org/eventemitter3/download/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
+  
   events@^1.0.0:
     version "1.1.1"
     resolved "https://registry.npmjs.org/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
@@ -2917,6 +2927,22 @@ Lockfile:
       inherits "2.0.3"
       setprototypeof "1.1.0"
       statuses ">= 1.4.0 < 2"
+  
+  http-proxy-middleware@^0.18.0:
+    version "0.18.0"
+    resolved "http://registry.npm.taobao.org/http-proxy-middleware/download/http-proxy-middleware-0.18.0.tgz#0987e6bb5a5606e5a69168d8f967a87f15dd8aab"
+    dependencies:
+      http-proxy "^1.16.2"
+      is-glob "^4.0.0"
+      lodash "^4.17.5"
+      micromatch "^3.1.9"
+  
+  http-proxy@^1.16.2:
+    version "1.16.2"
+    resolved "http://registry.npm.taobao.org/http-proxy/download/http-proxy-1.16.2.tgz#06dff292952bf64dbe8471fa9df73066d4f37742"
+    dependencies:
+      eventemitter3 "1.x.x"
+      requires-port "1.x.x"
   
   http-signature@~1.1.0:
     version "1.1.1"
@@ -3566,7 +3592,7 @@ Lockfile:
     version "1.1.2"
     resolved "https://registry.npmjs.org/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   
-  micromatch@^3.1.4:
+  micromatch@^3.1.4, micromatch@^3.1.9:
     version "3.1.10"
     resolved "https://registry.npmjs.org/micromatch/-/micromatch-3.1.10.tgz#70859bc95c9840952f359a068a3fc49f9ecfac23"
     dependencies:
@@ -4814,6 +4840,10 @@ Lockfile:
       forwarded "~0.1.2"
       ipaddr.js "1.6.0"
   
+  proxys@^2.3.0:
+    version "2.3.0"
+    resolved "http://registry.npm.taobao.org/proxys/download/proxys-2.3.0.tgz#42ab42c1ace8cf7b0bf756a3a5be413fb7682ded"
+  
   prr@~1.0.1:
     version "1.0.1"
     resolved "https://registry.npmjs.org/prr/-/prr-1.0.1.tgz#d3fc114ba06995a45ec6893f484ceb1d78f5f476"
@@ -5127,6 +5157,10 @@ Lockfile:
     dependencies:
       caller-path "^0.1.0"
       resolve-from "^1.0.0"
+  
+  requires-port@1.x.x:
+    version "1.0.0"
+    resolved "http://registry.npm.taobao.org/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   
   resolve-from@^1.0.0:
     version "1.0.1"
@@ -6312,14 +6346,11 @@ Lockfile:
       window-size "0.1.0"
 
 Trace: 
-  Error: Missing list of packages to add to your project.
+  Error: Couldn't find package "proxy-module" on the "npm" registry.
       at new MessageError (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:186:110)
-      at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:40587:13)
+      at NpmResolver.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:51625:15)
       at Generator.next (<anonymous>)
       at step (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:98:30)
-      at C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:116:14
-      at new Promise (<anonymous>)
-      at new F (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:23451:28)
-      at Object.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:95:12)
-      at Object.run (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:40599:19)
-      at run (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:89113:20)
+      at C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:109:13
+      at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
