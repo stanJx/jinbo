@@ -14,7 +14,7 @@
       </div>
       <div class="tab-container">
         <ul class="nav-tabs" ref="imgs" :style="{width: carousel.width}">
-          <li v-for="(item, index) in this.picBox" :key="index" @click="choosePic(index)"><img :src="item.pic" style="width:100%;height: 100%" alt=""></li>
+          <li v-for="(item, index) in this.picBox" :key="index" @click="choosePic(index)"><img :src="item" style="width:100%;height: 100%" alt=""></li>
         </ul>
       </div>
 
@@ -30,7 +30,7 @@
 
   export default {
     components: {imgZoom},
-    props: ['smallPic', 'bigPic', 'carousel', 'picBox'],
+    props: ['smallPic', 'bigPic', 'carousel', 'picBox', 'bigPicBox'],
     data () {
       return {
         configs: {
@@ -60,8 +60,8 @@
         }
       },
       choosePic (index) {
-        this.$emit('returnPic', [this.picBox[index].pic, this.picBox[index].bigPic])
         console.log(index)
+        this.$emit('returnPic', index)
       }
     }
   }
