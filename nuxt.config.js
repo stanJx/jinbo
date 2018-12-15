@@ -36,7 +36,20 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
+    vendor: ['~/plugins/vuex']
   },
-  plugins: ['~plugins/element-ui']
+  plugins: ['~plugins/element-ui', {src: '~plugins/vue-quill-editor', ssr: false}, '~plugins/iview'],
+  modules: [
+    // 请求代理配置，解决跨域
+    '@gauseen/nuxt-proxy',
+  ],
+  cache: {
+    max: 100000,
+    maxAge: 900000
+  },
+  proxyTable: {
+    '/db': { target: 'http://localhost:80/commercial-goods/public/index/index/index'}
+    // '/db': { target: 'http://localhost:3003/commercial-goods/public/'}
+  },
 }
